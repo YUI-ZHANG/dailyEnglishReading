@@ -1,0 +1,27 @@
+name: daily English
+on:
+  push:
+  schedule:
+  - cron: "0 1 * * *"
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' 
+
+      - name: Install dependencies
+        run: pip install google-genai
+
+      - name: Run Python script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MY_EMAIL: ${{ secrets.MY_EMAIL }}
+          GMAIL_TOKEN: ${{ secrets.GMAIL_TOKEN }}
+        run: python auto.py
