@@ -5,7 +5,7 @@ import datetime
 import os
 
 
-client = os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 # 取得今天的日期
 today = datetime.date.today()
